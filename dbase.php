@@ -10,10 +10,18 @@
         public $sql;
         public $session;
         
-        public function __construct($host, $user, $password, $dbname){
+		public $host;
+		public $user;
+		public $password;
+		
+        public function __construct($host, $user, $password){
 
-            $this->sql = new mysqli($host, $user, $password, $dbname);
+            $this->sql = new mysqli($host, $user, $password);
             $this->session = new Session();
+			
+			$this->host = $host;
+			$this->user = $user;
+			$this->password = $password;
             
             if (!isset(self::$instance)){
                 self::$instance = $this;
@@ -33,9 +41,15 @@
         }
 
         public function create_db($name){
-            $name = "`{$name}`";
-            $created = $this->create_delete('CREATE', $name);
-            return $created;
+            $newname = "`{$name}`";
+			$created = $this->create_delete('CREATE', $newname);
+            if($created){
+				$this->sql = new mysqli($this->host, $this->user, $this->password, $name);
+				$this->sql->select_db($name);
+				return $created;
+			}else{
+				return false;
+			}
         }
 
         public function delete_db($name){
