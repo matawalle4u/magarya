@@ -51,6 +51,18 @@
 				return false;
 			}
         }
+		
+		public function get_current_db(){
+			$result = $this->sql->query("SELECT DATABASE()");
+			if($result){
+				$row = $result->fetch_row();
+				$name= $row[0];
+				$result->close();
+				return $name;
+			}else{
+				return false;
+			}
+		}
 
         public function delete_db($name){
             $name = "`{$name}`";
