@@ -145,9 +145,7 @@
 
         }
 
-        public function file_upload(){
-            $uploaddir = 'uploads/';
-        }
+        
 
         private function construct_query_conditions(array $conditions, array $values){
             $query_cond ='';
