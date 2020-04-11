@@ -10,18 +10,18 @@
         public $sql;
         public $session;
         
-		public $host;
-		public $user;
-		public $password;
+	public $host;
+	public $user;
+	public $password;
 		
         public function __construct($host, $user, $password){
 
             $this->sql = new mysqli($host, $user, $password);
             $this->session = new Session();
 			
-			$this->host = $host;
-			$this->user = $user;
-			$this->password = $password;
+	    $this->host = $host;
+	    $this->user = $user;
+            $this->password = $password;
             
             if (!isset(self::$instance)){
                 self::$instance = $this;
@@ -42,31 +42,31 @@
 
         public function create_db($name){
             $newname = "`{$name}`";
-			$created = $this->create_delete('CREATE', $newname);
+	    $created = $this->create_delete('CREATE', $newname);
             if($created){
-				$this->sql = new mysqli($this->host, $this->user, $this->password, $name);
-				$this->sql->select_db($name);
-				return $created;
-			}else{
-				return false;
-			}
+		$this->sql = new mysqli($this->host, $this->user, $this->password, $name);
+		$this->sql->select_db($name);
+		return $created;
+	    }else{
+		return false;
+	    }
         }
 		
-		public function get_current_db(){
-			$result = $this->sql->query("SELECT DATABASE()");
-			if($result){
-				$row = $result->fetch_row();
-				$name= $row[0];
-				$result->close();
-				return $name;
-			}else{
-				return false;
-			}
-		}
+	public function get_current_db(){
+	    $result = $this->sql->query("SELECT DATABASE()");
+	    if($result){
+	        $row = $result->fetch_row();
+	        $name= $row[0];
+		$result->close();
+		return $name;
+	    }else{
+		return false;
+	    }
+	}
 		
-		public function change_active_db($name){
-			$this->sql->select_db($name);
-		}
+	public function change_active_db($name){
+	    $this->sql->select_db($name);
+	}
 
         public function delete_db($name){
             $name = "`{$name}`";
