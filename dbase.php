@@ -63,6 +63,10 @@
 				return false;
 			}
 		}
+		
+		public function change_active_db($name){
+			$this->sql->select_db($name);
+		}
 
         public function delete_db($name){
             $name = "`{$name}`";
