@@ -5,22 +5,22 @@
     include_once 'session.php';
     
     class Dbase implements DBaseInterface{
-
+	
         private static $instance;
         public $sql;
         public $session;
         
-	public $host;
-	public $user;
-	public $password;
+	    public $host;
+	    public $user;
+	    public $password;
 		
         public function __construct($host, $user, $password){
 
             $this->sql = new mysqli($host, $user, $password);
             $this->session = new Session();
 			
-	    $this->host = $host;
-	    $this->user = $user;
+	        $this->host = $host;
+	        $this->user = $user;
             $this->password = $password;
             
             if (!isset(self::$instance)){
@@ -42,14 +42,14 @@
 
         public function create_db($name){
             $newname = "`{$name}`";
-	    $created = $this->create_delete('CREATE', $newname);
+			$created = $this->create_delete('CREATE', $newname);
             if($created){
-		$this->sql = new mysqli($this->host, $this->user, $this->password, $name);
-		$this->sql->select_db($name);
-		return $created;
-	    }else{
-		return false;
-	    }
+				$this->sql = new mysqli($this->host, $this->user, $this->password, $name);
+				$this->sql->select_db($name);
+				return $created;
+			}else{
+				return false;
+			}
         }
 		
 	public function get_current_db(){
@@ -57,10 +57,10 @@
 	    if($result){
 	        $row = $result->fetch_row();
 	        $name= $row[0];
-		$result->close();
-		return $name;
+		    $result->close();
+		    return $name;
 	    }else{
-		return false;
+		    return false;
 	    }
 	}
 		
@@ -107,6 +107,7 @@
             }
 
             //echo"<h1>".$this->host."</h1>";
+			
             
             $result = $this->sql->query("SELECT  $cols FROM $table $cond");
             while($row=$result->fetch_array()){
@@ -117,11 +118,7 @@
                 array_push($all_ent, $group);
             }
             return $all_ent;
-            // $ent = $this->db->get('admin', ['name','contact'], ['gender'],['Male'], 'many');
-            //translates to " select name,contact from admin where gender='Male' "
-            // foreach($ent as $e){
-            //     echo $e['name']."<br />";
-            // }
+            
         }
 
         public function update($table, array $columns, array $values, array $conditions, array $cond_values){
