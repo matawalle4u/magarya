@@ -1,0 +1,38 @@
+Project: Magarya framework
+Developer: Adam Mustapha Kanya
+twitter: @sudo_nigeria
+email: matawalle4u@gmail.com
+Contact: +234 902 816 3380
+
+
+Database Module
+================
+To start using the dbmodule, you need to create and instance
+of the Dbase class passing three (3) main parameters as follows:
+
+$db = Dbase('hostname', 'username', 'password')
+
+hostname = is the name of the host e.g localhost (if you are running on a local machine)
+username = is the username of your phpmyadmin e.g root (If connecting with a root user)
+password = password of your phpmyadmin user e.g '' (if you are using a blank password)
+
+To start interacting with your database engine, first you need to create a database as follows:
+
+$db->create_db('my_database') 
+
+
+The database module performs 4 basic operations as follows:
+
+1.put (insertion) 
+2.get (retrieval)
+3.update (update)
+4.delete (deletion)
+
+
+
+$results = $db->get('developers', ['name','contact', 'role'], ['gender', 'role'],['Male', 'Senior developer'], 'many');
+translates to " select name,contact from developers where gender='Male' AND role='Senior developer' "
+
+foreach($results as $value){
+	echo $value['name'], $value['contact'], $value['role'];
+}
